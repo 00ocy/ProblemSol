@@ -3,106 +3,41 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class MemoryPool : MonoBehaviour
+namespace OCY_ProblemSol
 {
-    public Transform spawnPoint; // 총알이 생성될 위치를 지정할 Transform
-    public Queue<GameObject> bulletQueue;
-    public GameObject bulletPrefab;
-
-    void Start()
+    public class MemoryPool : MonoBehaviour
     {
-        bulletQueue = new Queue<GameObject>();
-
-        // 초기에 10개의 총알을 Queue에 추가
-        for (int i = 0; i < 10; i++)
+        public Transform spawnPoint;                     // 총알 생성 위치
+        public Queue<GameObject> bulletQueue;            // 총알 큐
+        public GameObject bulletPrefab;                  // 총알 원본
+    
+        void Start()
         {
-            GameObject bullet = Instantiate(bulletPrefab, spawnPoint.position, spawnPoint.rotation);
-            bullet.SetActive(false); // 비활성화 상태로 시작
-            bulletQueue.Enqueue(bullet);
+            bulletQueue = new Queue<GameObject>();
+
+            AddBullet();
         }
-    }
 
-    void Update()
-    {
-        if (Input.GetMouseButtonDown(0) && bulletQueue.Count() > 0)
+        void Update()
         {
-            GameObject bulletToActivate = bulletQueue.Peek();
-            bulletToActivate.SetActive(true);
-            bulletQueue.Dequeue();
-            Debug.Log(bulletQueue.Count());
-        }
-    }
-
-
-    public class Queue<T>
-    {
-        public class Node
-        {
-            public T data;
-            public Node next;
-
-            public Node(T data)
+            if (Input.GetMouseButtonDown(0) && bulletQueue.Count() > 0)
             {
-                this.data = data;
-                this.next = null;
+                GameObject bulletToActivate = bulletQueue.Peek();
+                bulletToActivate.SetActive(true);
+                bulletQueue.Dequeue();
+                Debug.Log(bulletQueue.Count());
             }
         }
 
-        public Node head;
-        private Node tail;
-        private int count;
-
-        public Queue()
+        void AddBullet()
         {
-            head = null;
-            tail = null;
-            count = 0;
-        }
-
-        public void Enqueue(T data)
-        {
-            Node newNode = new Node(data);
-
-            if (tail == null)
+            // 초기에 10개의 총알을 Queue에 추가
+            for (int i = 0; i < 10; i++)
             {
-                head = newNode;
-                tail = newNode;
+                GameObject bullet = Instantiate(bulletPrefab, spawnPoint.position, spawnPoint.rotation);
+                bullet.SetActive(false); // 비활성화 상태로 시작
+                bulletQueue.Enqueue(bullet);
             }
-            else
-            {
-                tail.next = newNode;
-                tail = newNode;
-            }
-
-            count++;
-        }
-
-        public T Peek()
-        {
-            if (head == null)
-                throw new InvalidOperationException("Queue is empty");
-
-            return head.data;
-        }
-
-        public T Dequeue()
-        {
-            if (head == null)
-                throw new InvalidOperationException("Queue is empty");
-
-            T data = head.data;
-            head = head.next;
-            count--;
-
-            if (head == null)
-                tail = null;
-
-            return data;
-        }
-
-        public int Count()
-        {
-            return count;
         }
     }
 }

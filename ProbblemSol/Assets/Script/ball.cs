@@ -2,24 +2,28 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ball : MonoBehaviour
+
+namespace OCY_ProblemSol
 {
-    public MemoryPool MP;
-
-    void Update()
+    public class ball : MonoBehaviour
     {
-        Vector3 movement = new Vector3(2f, 0f, 0f) * 4 * Time.deltaTime;
-        transform.Translate(movement);
-    }
+        public MemoryPool MP;
 
-    void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("red"))
+        void Update()
         {
-            gameObject.SetActive(false);
-            gameObject.transform.position = MP.spawnPoint.position;
-            MP.bulletQueue.Enqueue(gameObject);
-            Debug.Log(MP.bulletQueue.Count());
+            Vector3 movement = new Vector3(2f, 0f, 0f) * 4 * Time.deltaTime;
+            transform.Translate(movement);
+        }
+
+        void OnCollisionEnter(Collision collision)
+        {
+            if (collision.gameObject.CompareTag("red"))
+            {
+                gameObject.SetActive(false);
+                gameObject.transform.position = MP.spawnPoint.position;
+                MP.bulletQueue.Enqueue(gameObject);
+                Debug.Log(MP.bulletQueue.Count());
+            }
         }
     }
 }

@@ -1,13 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
+using DataStructure;
 using UnityEngine;
-using System;
 
 namespace OCY_ProblemSol
 {
-    public class MemoryPool : MonoBehaviour
+    public class MemoryPool_Queue : MonoBehaviour
     {
-        public Transform spawnPoint;                     // 총알 생성 위치
         public Queue<GameObject> bulletQueue;            // 총알 큐
         public GameObject bulletPrefab;                  // 총알 원본
     
@@ -22,9 +19,8 @@ namespace OCY_ProblemSol
         {
             if (Input.GetMouseButtonDown(0) && bulletQueue.Count() > 0)
             {
-                GameObject bulletToActivate = bulletQueue.Peek();
+                GameObject bulletToActivate = bulletQueue.Dequeue();
                 bulletToActivate.SetActive(true);
-                bulletQueue.Dequeue();
                 Debug.Log(bulletQueue.Count());
             }
         }
@@ -34,10 +30,11 @@ namespace OCY_ProblemSol
             // 초기에 10개의 총알을 Queue에 추가
             for (int i = 0; i < 10; i++)
             {
-                GameObject bullet = Instantiate(bulletPrefab, spawnPoint.position, spawnPoint.rotation);
-                bullet.SetActive(false); // 비활성화 상태로 시작
-                bulletQueue.Enqueue(bullet);
+                GameObject obj = Instantiate(bulletPrefab);
+                obj.GetComponent<bullet>().Init(transform.position, bulletQueue);
+                bulletQueue.Enqueue(obj);
             }
+         
         }
     }
 }

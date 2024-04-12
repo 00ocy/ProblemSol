@@ -137,24 +137,31 @@ namespace OCY_Editor
             mesh.vertices = vertices;
             mesh.triangles = triangleIndices;
 
-            // 삼각형의 법선을 계산하여 정점의 법선에 더하고, 정규화
+            // 메시의 정점 수 만큼 배열을 만듦
             Vector3[] normals = new Vector3[mesh.vertices.Length];
+
+            // 정점 수 만큼 for문 돌림 삼각형이니까 3칸 건너뜀
             for (int i = 0; i < mesh.triangles.Length; i += 3)
             {
+                // 인덱스 012에 3개의 정점 부여 
                 int index0 = mesh.triangles[i];
                 int index1 = mesh.triangles[i + 1];
                 int index2 = mesh.triangles[i + 2];
 
+                // 정점 1에서 정점 0을 빼서 변1 을 구함
                 Vector3 side1 = mesh.vertices[index1] - mesh.vertices[index0];
+                // 정점 2에서 정점 0을 빼서 변2 를 구함
                 Vector3 side2 = mesh.vertices[index2] - mesh.vertices[index0];
-
+                // 변1, 변2를 외적해서 정규화 == 법선 벡터
                 Vector3 triangleNormal = Vector3.Cross(side1, side2).normalized;
 
+                // 공유하는 법선 벡터들을 누적
                 normals[index0] += triangleNormal;
                 normals[index1] += triangleNormal;
                 normals[index2] += triangleNormal;
             }
 
+            // 누적된 법선 벡터들을 정규화 해서 대각선(자칭) 법선을 구함 그래야 조명에 따라 적합한 계산이 가능
             for (int i = 0; i < normals.Length; i++)
             {
                 normals[i] = normals[i].normalized;

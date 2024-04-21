@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -224,10 +224,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1083307510}
-  - component: {fileID: 1083307509}
   - component: {fileID: 1083307508}
   - component: {fileID: 1083307507}
   - component: {fileID: 1083307511}
+  - component: {fileID: 1083307512}
   m_Layer: 0
   m_Name: Star
   m_TagString: Untagged
@@ -285,18 +285,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1083307506}
   m_Mesh: {fileID: 2031633819}
---- !u!114 &1083307509
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1083307506}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a5e7e2af507991142a460d7a85dfa955, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &1083307510
 Transform:
   m_ObjectHideFlags: 0
@@ -325,6 +313,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotationSpeed: 50
+--- !u!114 &1083307512
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1083307506}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 252cc14a691036840b66c28068edcbd2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!43 &2031633819
 Mesh:
   m_ObjectHideFlags: 0

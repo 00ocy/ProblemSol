@@ -28,6 +28,11 @@ namespace OCY_ProblemSol
             gameObject.transform.position = BulletInitialPos;
             list_S = Stack;
         }
+        // 방향 설정 함수
+        public void SetDirection(Vector3 direction)
+        {
+            BulletDirection = direction.normalized;
+        }
 
         void Update()
         {

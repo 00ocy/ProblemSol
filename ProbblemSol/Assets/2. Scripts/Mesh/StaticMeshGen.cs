@@ -11,6 +11,7 @@ namespace OCY_Editor
 
     public class StaticMeshGenEditor : Editor
     {
+        
         //버튼만들기 예제
         public override void OnInspectorGUI()
         {

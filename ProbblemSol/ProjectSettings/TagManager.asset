@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - red
+  - Obstacle
+  - bullet
   layers:
   - Default
   - TransparentFX

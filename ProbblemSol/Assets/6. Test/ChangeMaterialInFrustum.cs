@@ -6,10 +6,11 @@ public class ChangeMaterialInViewport : MonoBehaviour
     public Material material2; // 시점 외부에 있는 오브젝트에 적용될 머티리얼
     public Material material3; // 좌측 상단 사분면에 적용될 머티리얼
     public Material material4; // 우측 하단 사분면에 적용될 머티리얼
+    public Material materialout; // 우측 하단 사분면에 적용될 머티리얼
 
     private Camera thisCamera;
     public int maxRecursionDepth = 0; // 최대 재귀 호출 깊이
-
+ 
     private void Start()
     {
         // 해당 게임 오브젝트에 연결된 카메라 컴포넌트 가져오기
@@ -18,6 +19,7 @@ public class ChangeMaterialInViewport : MonoBehaviour
         {
             Debug.LogError("카메라 컴포넌트를 찾을 수 없습니다.");
         }
+
     }
 
     private void Update()
@@ -46,7 +48,7 @@ public class ChangeMaterialInViewport : MonoBehaviour
         {
             if (!ViewportContainsBounds(viewportRect, renderer.bounds))
             {
-                renderer.material = material2;
+                renderer.material = materialout;
             }
         }
     }
@@ -89,6 +91,7 @@ public class ChangeMaterialInViewport : MonoBehaviour
             // 최종 하위 영역에서 렌더링할 오브젝트가 있는지 확인하고, 그에 따라 머티리얼을 적용
             foreach (Renderer renderer in renderers)
             {
+
                 if (ViewportContainsBounds(viewportRect, renderer.bounds))
                 {
                     // 해당 사분면에 따라 다른 머티리얼 적용
@@ -104,12 +107,15 @@ public class ChangeMaterialInViewport : MonoBehaviour
                     {
                         renderer.material = material2;
                     }
-                    else // 우측 상단 사분면
+                    else if (end.x == 1 && end.y == 1) // 우측 상단 사분면
                     {
                         renderer.material = material4;
                     }
+
                 }
             }
+
+
         }
     }
 

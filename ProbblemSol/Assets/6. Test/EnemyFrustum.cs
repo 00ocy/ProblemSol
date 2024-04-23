@@ -1,3 +1,5 @@
+using OCY_ProblemSol;
+using UnityEditor.Timeline.Actions;
 using UnityEngine;
 
 public class EnemyFrustum : MonoBehaviour
@@ -8,9 +10,15 @@ public class EnemyFrustum : MonoBehaviour
 
     public Camera thisCamera;
     public GameObject player; // 플레이어 게임 오브젝트
-
+    private MQ mQ;
+    private bool inboke = false;
     public float followSpeed = 5f; // 플레이어를 따라가는 속도
 
+    private void Start()
+    {
+        mQ = this.GetComponent<MQ>();
+        mQ.enabled = false;
+    }
     private void Update()
     {
         if (thisCamera == null)
@@ -32,11 +40,18 @@ public class EnemyFrustum : MonoBehaviour
             
             foreach (RaycastHit hit in hits)
             {
+                
                 if (hit.transform != player.transform && hit.transform != transform)
                 {
                     // 장애물이 플레이어나 적이 아닌 다른 오브젝트일 때만 처리
                     Debug.DrawRay(transform.position, (player.transform.position - transform.position).normalized * hit.distance, Color.red);
                     player.GetComponent<Renderer>().material = material2;
+                    if (inboke == true)
+                    {
+                        mQ.CancelInvoke("Shoot");
+                        inboke = false;
+
+                    }
                     return;
                 }
             }
@@ -45,6 +60,12 @@ public class EnemyFrustum : MonoBehaviour
             // 플레이어를 따라가는 로직 추가
             if (player != null)
             {
+                if(inboke==false)
+                {
+                    mQ.InvokeRepeating("Shoot", 1f, 1f);
+                    inboke = true;
+                }
+
                 // 플레이어 방향으로 일정 속도로 이동
                 transform.position = Vector3.MoveTowards(transform.position, player.transform.position, followSpeed * Time.deltaTime);
 
@@ -56,6 +77,13 @@ public class EnemyFrustum : MonoBehaviour
         {
             // 프러스텀 밖에 있는 경우 Material2 적용
             player.GetComponent<Renderer>().material = material3;
+
+            if (inboke==true)
+            {
+            mQ.CancelInvoke("Shoot");
+            inboke = false;
+
+            }
         }
 
         // 디버그 레이를 그리기

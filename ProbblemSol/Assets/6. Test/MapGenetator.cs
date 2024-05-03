@@ -56,11 +56,7 @@ public class MapGenetator: MonoBehaviour
             return;
         }
 
-        // 기존에 생성된 타일들 삭제
-        foreach (Transform child in parentTransform)
-        {
-            Destroy(child.gameObject);
-        }
+  
 
         // 맵 데이터에 따라 타일 생성
         for (int y = 0; y < Height; y++)
@@ -70,6 +66,8 @@ public class MapGenetator: MonoBehaviour
                 //Vector3 BottomLeft = parentTransform.position - new Vector3(parentTransform.localScale.x / 2f, 0f, parentTransform.localScale.z / 2f);
                 //parentBottomLeft.position = BottomLeft;
                 Vector3 parentScale = parentTransform.localScale; // 부모의 스케일 가져오기
+                parentScale.x = parentScale.x / (Width / 10f);
+                parentScale.z = parentScale.z / (Height / 10f);
                 // 타일의 종류 설정
                 switch (mapData[x, y])
                 {
@@ -79,14 +77,22 @@ public class MapGenetator: MonoBehaviour
                     case 1:
                         // 낮은 벽
                         // 벽 오브젝트를 생성하여 타일의 자식으로 추가
-                        Vector3 L_tilePosition = new Vector3((x* parentScale.x)- (4.5f* parentTransform.localScale.x), 0.25f*parentScale.y, (y* parentScale.z)-(4.5f* parentTransform.localScale.z)); // 타일의 위치 계산
+                        Vector3 L_tilePosition = new Vector3(
+                            (x * parentScale.x) - (Width * parentScale.x) / 2 + parentScale.x / 2f,
+                            0.25f * parentScale.y,
+                            (y * parentScale.z) - (Height * parentScale.z) / 2 + parentScale.z / 2f
+                            );
                         GameObject L_tile = Instantiate(tilePrefab, L_tilePosition, Quaternion.identity, parentTransform);
                         GameObject lowWall = Instantiate(lowWallPrefab, L_tilePosition, Quaternion.identity, L_tile.transform);
                         break;
                     case 2:
                         // 높은 벽
                         // 높은 벽 오브젝트를 생성하여 타일의 자식으로 추가
-                        Vector3 H_tilePosition = new Vector3((x* parentScale.x)- (4.5f* parentTransform.localScale.x), 0.5f*parentScale.y, (y* parentScale.z)-(4.5f* parentTransform.localScale.z)); // 타일의 위치 계산
+                        Vector3 H_tilePosition = new Vector3(
+                            (x * parentScale.x) - (Width * parentScale.x) / 2 + parentScale.x / 2f,
+                            0.5f*parentScale.y,
+                            (y * parentScale.z) - (Height * parentScale.z) / 2 + parentScale.z / 2f
+                            ); // 타일의 위치 계산
                         GameObject H_tile = Instantiate(tilePrefab, H_tilePosition, Quaternion.identity, parentTransform);
                         GameObject highWall = Instantiate(highWallPrefab, H_tilePosition, Quaternion.identity, H_tile.transform);
                         break;

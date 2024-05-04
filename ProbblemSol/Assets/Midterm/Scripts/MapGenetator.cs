@@ -77,28 +77,45 @@ public class MapGenetator: MonoBehaviour
                     case 1:
                         // 낮은 벽
                         // 벽 오브젝트를 생성하여 타일의 자식으로 추가
+                        // 낮은 벽의 타일 위치 계산
                         Vector3 L_tilePosition = new Vector3(
-                            (x * parentScale.x) - (Width * parentScale.x) / 2 + parentScale.x / 2f,
+                            (x * parentScale.x) - (parentScale.x * (Width - 1) * 0.5f),
                             0.25f * parentScale.y,
-                            (y * parentScale.z) - (Height * parentScale.z) / 2 + parentScale.z / 2f
-                            );
+                            (y * parentScale.z) - (parentScale.z * (Height - 1) * 0.5f)
+                        );
+
                         GameObject L_tile = Instantiate(tilePrefab, L_tilePosition, Quaternion.identity, parentTransform);
                         GameObject lowWall = Instantiate(lowWallPrefab, L_tilePosition, Quaternion.identity, L_tile.transform);
+                        lowWall.transform.localScale = new Vector3(AdjustToUnityScale(Width / 10f), 1, AdjustToUnityScale(Height / 10f));
                         break;
                     case 2:
                         // 높은 벽
                         // 높은 벽 오브젝트를 생성하여 타일의 자식으로 추가
+                        // 높은 벽의 타일 위치 계산
                         Vector3 H_tilePosition = new Vector3(
-                            (x * parentScale.x) - (Width * parentScale.x) / 2 + parentScale.x / 2f,
-                            0.5f*parentScale.y,
-                            (y * parentScale.z) - (Height * parentScale.z) / 2 + parentScale.z / 2f
-                            ); // 타일의 위치 계산
+                            (x * parentScale.x) - (parentScale.x * (Width - 1) * 0.5f),
+                            0.5f * parentScale.y,
+                            (y * parentScale.z) - (parentScale.z * (Height - 1) * 0.5f)
+                        );
+
                         GameObject H_tile = Instantiate(tilePrefab, H_tilePosition, Quaternion.identity, parentTransform);
                         GameObject highWall = Instantiate(highWallPrefab, H_tilePosition, Quaternion.identity, H_tile.transform);
+                        highWall.transform.localScale = new Vector3(AdjustToUnityScale(Width / 10f), 1, AdjustToUnityScale(Height / 10f));
                         break;
                 }
 
             }
+        }
+    }
+    public float AdjustToUnityScale(float value)
+    {
+        if (value < 1f)
+        {
+            return 1f + (1f-value)+0.01f;
+        }
+        else
+        {
+            return 1f - (value - 1f)+0.01f;
         }
     }
 

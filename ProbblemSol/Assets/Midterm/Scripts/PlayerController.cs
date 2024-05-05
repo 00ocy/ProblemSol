@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -20,7 +21,45 @@ public class PlayerController : MonoBehaviour
     {
 
     }
-
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("end"))
+        {
+            // "Clear" 이름을 가진 캔버스 찾기
+            GameObject clearCanvas = GameObject.Find("Clear");
+            // 게임 오브젝트가 존재하는지 확인합니다.
+            if (clearCanvas != null)
+            {
+                // 하위 오브젝트를 모두 가져와서 활성화합니다.
+                foreach (Transform child in clearCanvas.transform)
+                {
+                    child.gameObject.SetActive(true);
+                }
+            }
+            else
+            {
+                Debug.LogError("Target game object not found!");
+            }
+        }
+        if (collision.gameObject.CompareTag("enemy"))
+        {
+            GameObject overCanvas = GameObject.Find("Over");
+            // 게임 오브젝트가 존재하는지 확인합니다.
+            if (overCanvas != null)
+            {
+                // 하위 오브젝트를 모두 가져와서 활성화합니다.
+                foreach (Transform child in overCanvas.transform)
+                {
+                    child.gameObject.SetActive(true);
+                    Time.timeScale = 0f;
+                }
+            }
+            else
+            {
+                Debug.LogError("Target game object not found!");
+            }
+        }
+    }
     void Update()
     {
         // 이동 입력 받기
@@ -56,6 +95,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    
 
     IEnumerator RotateObject(int direction)
     {

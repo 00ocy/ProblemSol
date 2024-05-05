@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Toon Shading
+  m_Name: wall_mt
   m_Shader: {fileID: 4800000, guid: 1f2a9f79ed42f7247a5eaafaf034c747, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -61,7 +61,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _AmbientStrength: 0.18
+    - _AmbientStrength: -0.7
     - _BumpScale: 1
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
@@ -83,7 +83,7 @@ Material:
     - _ZWrite: 1
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _DiffuseColor: {r: 0.9372549, g: 1, b: 0, a: 1}
+    - _DiffuseColor: {r: 0, g: 1, b: 0.609992, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _LightDirection: {r: 11.8, g: 154.1, b: 32.77, a: 27.12}
   m_BuildTextureStacks: []

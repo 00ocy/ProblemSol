@@ -7,6 +7,8 @@ TagManager:
   - red
   - Obstacle
   - bullet
+  - end
+  - enemy
   layers:
   - Default
   - TransparentFX

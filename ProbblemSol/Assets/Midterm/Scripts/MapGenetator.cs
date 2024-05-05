@@ -80,13 +80,13 @@ public class MapGenetator: MonoBehaviour
                         // 낮은 벽의 타일 위치 계산
                         Vector3 L_tilePosition = new Vector3(
                             (x * parentScale.x) - (parentScale.x * (Width - 1) * 0.5f),
-                            0.25f * parentScale.y,
+                            0.05f * parentScale.y,
                             (y * parentScale.z) - (parentScale.z * (Height - 1) * 0.5f)
                         );
 
                         GameObject L_tile = Instantiate(tilePrefab, L_tilePosition, Quaternion.identity, parentTransform);
                         GameObject lowWall = Instantiate(lowWallPrefab, L_tilePosition, Quaternion.identity, L_tile.transform);
-                        lowWall.transform.localScale = new Vector3(AdjustToUnityScale(Width / 10f), 1, AdjustToUnityScale(Height / 10f));
+                        lowWall.transform.localScale = new Vector3(AdjustToUnityScale(Width / 10f), 0.1f, AdjustToUnityScale(Height / 10f));
                         break;
                     case 2:
                         // 높은 벽
@@ -94,13 +94,13 @@ public class MapGenetator: MonoBehaviour
                         // 높은 벽의 타일 위치 계산
                         Vector3 H_tilePosition = new Vector3(
                             (x * parentScale.x) - (parentScale.x * (Width - 1) * 0.5f),
-                            0.5f * parentScale.y,
+                            0.25f * parentScale.y,
                             (y * parentScale.z) - (parentScale.z * (Height - 1) * 0.5f)
                         );
 
                         GameObject H_tile = Instantiate(tilePrefab, H_tilePosition, Quaternion.identity, parentTransform);
                         GameObject highWall = Instantiate(highWallPrefab, H_tilePosition, Quaternion.identity, H_tile.transform);
-                        highWall.transform.localScale = new Vector3(AdjustToUnityScale(Width / 10f), 1, AdjustToUnityScale(Height / 10f));
+                        highWall.transform.localScale = new Vector3(AdjustToUnityScale(Width / 10f), 0.5f, AdjustToUnityScale(Height / 10f));
                         break;
                 }
 

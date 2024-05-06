@@ -43,7 +43,27 @@ public class MapGenetator: MonoBehaviour
         }
         else
         {
-            Debug.LogError("File not found: " + filePath);
+            Debug.LogWarning("File not found: " + filePath + ". Creating a new file with default map data.");
+
+            // Create a new file
+            using (StreamWriter writer = new StreamWriter(filePath))
+            {
+                string defaultMapData =
+                    "2,2,2,2,2,2,2,2,2,2\n" +
+                    "2,0,0,0,0,0,0,0,2,2\n" +
+                    "2,2,0,0,0,0,0,0,2,2\n" +
+                    "2,0,0,2,2,2,2,0,2,2\n" +
+                    "2,0,1,2,0,0,2,0,2,2\n" +
+                    "2,0,0,0,0,0,0,0,2,2\n" +
+                    "2,0,2,2,2,2,2,0,2,2\n" +
+                    "2,0,0,0,2,0,0,0,2,2\n" +
+                    "2,0,2,0,0,0,1,1,2,2\n" +
+                    "2,2,2,2,2,2,2,2,2,2";
+                writer.Write(defaultMapData);
+            }
+
+            // Reload map data
+            LoadMapDataFromCSV(filePath);
         }
     }
 

@@ -34,6 +34,8 @@ public class PlayerController : MonoBehaviour
                 foreach (Transform child in clearCanvas.transform)
                 {
                     child.gameObject.SetActive(true);
+                    Time.timeScale = 0f;
+
                 }
             }
             else

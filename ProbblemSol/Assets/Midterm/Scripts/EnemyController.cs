@@ -151,7 +151,7 @@ public class EnemyController : MonoBehaviour
 
         // 회전이 끝나면 180도 회전
         Quaternion originalRotation = transform.rotation;
-        Quaternion target180Rotation = originalRotation * Quaternion.Euler(0, -180, 0);
+        Quaternion target180Rotation = originalRotation * Quaternion.Euler(0, 180, 0);
         float rotateDuration = 3.0f; // 회전하는데 걸리는 시간
         float rotateStartTime = Time.time;
 
